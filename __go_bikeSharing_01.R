@@ -168,7 +168,7 @@ m_tot = m_tot,
 U = U_train,
 m_start = 1,
 mact_control = xcmact_hybrid,
-verbosity = 1
+verbosity = 3
 )
 
 cat( difftime(Sys.time(), xxnow, units="mins"), "\n" )
@@ -294,7 +294,7 @@ plot( 0:(length(xxers_mm)-1), xxers_mm, type="l", col="#22FF11", lwd=3, main="GL
 
 
 
-################## ridge the olde fashioned way -- center y
+################## ridge
 
 y_all_stnd <- (yall - mean(y_train)) / sd(y_train)
 
@@ -340,6 +340,7 @@ sd(yall[ xndx_test ])
 y_all_stnd <- (yall - mean(y_train)) / sd(y_train)
 
 
+############## create giant matrix of all 1st-order interactions
 dim(Uall)
 
 Xx_big <- matrix(NA, nrow(Uall), ncol(Uall)^2)
@@ -352,6 +353,8 @@ for(ii in 1:ncol(Uall)) {
     }
 }
 
+head(Xx_big)
+dim(Xx_big)
 
 Xx_train <- Xx_big[ xndx_train, ]
 Xx_test  <- Xx_big[ xndx_test, ]
@@ -392,6 +395,7 @@ axis(1, xreg_vec, at=0:(length(xxers_mm)-1))
 
 sd(yall[ xndx_test ])
 
+xxers_mm[ which.min(xxers_mm) ]
 
 
 ######################################## XGBoost
