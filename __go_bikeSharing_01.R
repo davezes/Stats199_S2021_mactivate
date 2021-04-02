@@ -261,7 +261,7 @@ for(iimm in 0:m_tot) {
 mx_errs <- y_test - yhatTT
 xxers_mm <- apply( mx_errs, 2, function(x) { return( sqrt( mean( x^2 ) ) ) } ) ; xxers_mm
 which.min(xxers_mm)
-cat("\n", "Best testing RMSE:", xxers_mm[ which.min(xxers_mm) ], " -- occurs at w =", which.min(xxers_mm), "\n")
+cat("\n", "Best testing RMSE:", xxers_mm[ which.min(xxers_mm) ], " -- occurs at w =", which.min(xxers_mm)-1, "\n")
 plot( 0:(length(xxers_mm)-1), xxers_mm, type="l", col="#22FF11", lwd=3, main="Test RMSE ~vs~ First # Columns of What")
 
 
@@ -286,7 +286,7 @@ Yhat <- predict(gfit1, newx=X_test)
 mx_errs <- y_test - Yhat
 xxers_mm <- apply( mx_errs, 2, function(x) { return( sqrt( mean( x^2 ) ) ) } ) ; xxers_mm
 which.min(xxers_mm)
-cat("\n", "Best GLMNET testing RMSE:", xxers_mm[ which.min(xxers_mm) ], " -- occurs at s =", which.min(xxers_mm), "\n")
+cat("\n", "Best GLMNET testing RMSE:", xxers_mm[ which.min(xxers_mm) ], " -- occurs at s =", which.min(xxers_mm)-1, "\n")
 plot( 0:(length(xxers_mm)-1), xxers_mm, type="l", col="#22FF11", lwd=3, main="GLMNET Test RMSE ~vs~ s val")
 
 
