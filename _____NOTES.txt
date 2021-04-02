@@ -1,0 +1,50 @@
+
+
+##### in terminal
+## pip3 install keras
+## pip3 install tensorflow
+
+
+
+
+#### on first install, may need to run
+## install_keras(method = c("auto", "virtualenv", "conda"), conda = "auto", tensorflow = "default", extra_packages = NULL)
+
+
+
+
+
+
+
+
+brew upgrade Python3
+
+
+which python
+
+#python -m pip install pip
+
+sudo -H python -m ensurepip
+
+### may have to use sudo for these
+
+sudo pip install --upgrade pip
+sudo pip install tornado
+sudo pip install nose
+sudo pip install numpy
+sudo pip install keras
+sudo pip install install --upgrade --ignore-installed scipy
+sudo pip install tensorflow
+
+
+
+
+sudo pip install --upgrade --ignore-installed numpy
+
+
+Sys.setenv(RETICULATE_PYTHON = "/usr/bin/python")
+
+
+
+
+
