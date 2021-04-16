@@ -240,7 +240,10 @@ c(
 "sporeCol_h",
 
 "population_a",
-"habitat_d"
+"habitat_d",
+
+"stalkColBR_c",
+"stalkColBR_o"
 
 )
 
