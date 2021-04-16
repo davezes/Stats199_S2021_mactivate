@@ -3,7 +3,7 @@
 
 library(mactivate)
 
-
+library(Matrix)
 
 
 
@@ -42,6 +42,21 @@ xd_workingday <- f_dummy(x=xdf[ , "workingday"], facname="workday_")
 xd_weathersit <- f_dummy(x=xdf[ , "weathersit"], facname="weather_")
 
 
+dim(xd_weathersit)
+rankMatrix(xd_weathersit)
+solve( crossprod(xd_weathersit) )
+
+
+dim(xd_hr)
+rankMatrix(xd_hr)
+solve( crossprod(xd_hr) )
+
+
+Xx <- cbind(xd_weathersit, xd_hr)
+dim(Xx)
+rankMatrix(Xx)
+solve( crossprod(Xx) )
+
 
 
 
@@ -65,6 +80,14 @@ xd_weathersit[ , ],
 head(X)
 
 
+
+###############
+
+
+
+dim(X)
+
+rankMatrix(X)
 
 
 
