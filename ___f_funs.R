@@ -1,6 +1,20 @@
 
 
 
+
+
+f_ogive <- function(x) {
+    
+    #z <- (rank(x)-1/2) / length(x)
+    z <- qnorm((rank(x)-1/2) / length(x))
+    return(z)
+}
+
+
+
+
+
+
 ffun <- function(x, y) { return( sqrt( mean( (y - x)^2 ) ) ) }
 
 
