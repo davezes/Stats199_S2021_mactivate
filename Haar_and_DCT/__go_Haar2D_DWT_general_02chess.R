@@ -117,6 +117,8 @@ image(yimage, col=xpalette)
 
 ################# find intense frequencies
 
+image(HH)
+
 HHuse <- HH[ ,  ]
 
 
