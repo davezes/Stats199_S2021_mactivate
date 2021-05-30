@@ -46,7 +46,7 @@ yimage
 
 ################### ortho normality
 
-sum( t(HH) - HH )
+sum( (t(HH) - solve(HH))^2 )
 
 
 ################################## A REAL EXAMPLE
@@ -165,7 +165,7 @@ library(mrbsizeR)
 CC <- dctMatrix(n=128)
 
 ############# orthonormaility
-sum( t(CC) - CC )
+sum( (t(CC) - solve(CC))^2 )
 
 
 ##plot(0, 0, type="n")

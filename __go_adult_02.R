@@ -141,7 +141,21 @@ Xstnd <- t( ( t(X) - apply(X, 2, mean) ) / apply(X, 2, sd) )
 
 head(Xstnd)
 
-Uall <- Xstnd
+
+xname_num <-
+c(
+"x_age",
+"x_fnlwgt",
+"x_capgain",
+"x_caploss",
+"x_hrsperwk"
+)
+
+
+## Uall <- Xstnd
+
+Uall <- cbind(Xstnd, Xstnd[ , xname_num ]^2)
+
 
 ydf <- data.frame("y"=yall, Xstnd)
 
@@ -192,6 +206,8 @@ yhat_glm <- predict(xglm, newdata=zdf[ xndx_test, ], type="response")
 
 mean( f_logit_cost(y=y_test, yhat=yhat_glm) )
 
+#### 0.657037
+
 ####### usual LM
 ##sqrt( mean( ( y_test - yhat_lm )^2 ) )
 
@@ -204,7 +220,7 @@ mean( f_logit_cost(y=y_test, yhat=yhat_glm) )
 
 
 
-m_tot <- 4
+m_tot <- 5
 ## m_tot <- 21
 
 xcmact_hybrid <-
@@ -213,18 +229,18 @@ param_sensitivity = 10^9,
 bool_free_w       = TRUE,
 #w0_seed           = 0.1,
 w0_seed           = 0.01,
-#w_col_search      = "alternate",
-w_col_search      = "one",
+w_col_search      = "alternate",
+#w_col_search      = "one",
 bool_headStart    = TRUE,
 antifreeze        = TRUE, #### must be true to escape
 max_internal_iter = 100, #####
-ss_stop           = 10^(-15), ### -14 very small
+ss_stop           = 10^(-17), ### -14 very small
 escape_rate       = 1.002,
 step_size         = 1,
 Wadj              = 1/1,
 force_tries       = 0,
-lambda            = 1/300, ####
-tol               = 10^(-15) ### -14 hybrid only
+lambda            = 0/300, ####
+tol               = 10^(-17) ### -14 hybrid only
 )
 
 
@@ -249,35 +265,9 @@ m_start = 1,
 mact_control = xcmact_hybrid,
 verbosity = 3
 )
-
 cat( difftime(Sys.time(), xxnow, units="mins"), "\n" )
 
 
-
-
-
-
-
-######################################################### numerical
-yhatTT       <- matrix(NA, length(xndx_test), m_tot+1)
-
-
-for(iimm in 0:m_tot) {
-    yhat_test <- predict(object=xxls_out, X0=X_test, U0=U_test, mcols=iimm )
-    yhatTT[ , iimm + 1 ] <- yhat_test
-
-}
-
-
-mx_errs <- y_test - yhatTT
-xxers_mm <- apply( mx_errs, 2, function(x) { return( sqrt( mean( x^2 ) ) ) } ) ; xxers_mm
-which.min(xxers_mm)
-cat("\n", "Best testing RMSE:", xxers_mm[ which.min(xxers_mm) ], " -- occurs at w =", which.min(xxers_mm), "\n")
-plot( 0:(length(xxers_mm)-1), xxers_mm, type="l", col="#22FF11", lwd=3, main="Test RMSE ~vs~ First # Columns of What")
-
-plot(y_test, yhatTT[ , 5])
-
-cor(y_test, yhatTT[ , 5])
 
 
 ########################################################## dichotomous
@@ -290,7 +280,6 @@ for(iimm in 0:m_tot) {
     yhatTT[ , iimm + 1 ] <- yhat_test[[ "p0hat" ]]
     mx_errs_dich[ , iimm + 1 ] <- f_logit_cost(y=y_test, yhat=yhat_test[[ "p0hat" ]])
 }
-
 
 xxers_mm <- apply( mx_errs_dich, 2, mean ) ; xxers_mm
 which.min(xxers_mm)
